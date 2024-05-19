@@ -2,7 +2,6 @@
 set -0 errexit
 
 poetry install --no-root
-poetry add dj-database-url
 
 python manage.py migrate
 
