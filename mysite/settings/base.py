@@ -34,8 +34,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 MEDIA_S3_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', default=None)
 MEDIA_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', default=None)
-MEDIA_S3_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME', default=None)
+MEDIA_S3_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', default=None)
 
+print("#########################################")
+print(MEDIA_S3_ACCESS_KEY_ID)
+print(MEDIA_S3_SECRET_ACCESS_KEY)
+print(MEDIA_S3_BUCKET_NAME)
 # Application definition
 
 INSTALLED_APPS = [
