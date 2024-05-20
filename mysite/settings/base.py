@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import dj_database_url
+import environ
+env = environ.Env()
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -29,7 +31,12 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY")
+
+
+MEDIA_S3_ACCESS_KEY_ID = env('MEDIA_S3_ACCESS_KEY_ID', default=None)
+MEDIA_S3_SECRET_ACCESS_KEY = env('MEDIA_S3_SECRET_ACCESS_KEY', default=None)
+MEDIA_S3_BUCKET_NAME=env('MEDIA_S3_BUCKET_NAME', default=None)
 
 # Application definition
 
@@ -95,7 +102,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+    'default': dj_database_url.parse(env("DATABASE_URL"))}
 
 # DATABASES = {
 #     "default": {
@@ -158,12 +165,16 @@ if not DEBUG:    # Tell Django to copy static assets into a path called `staticf
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STORAGES = {
         "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
+            "BACKEND": "mysite.storages.PublicMediaStorage",
         },
         "staticfiles": {
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         },
     }
+
+    MEDIA_ROOT = 'media'
+    MEDIA_HOST=f'{MEDIA_S3_BUCKET_NAME}.s3.amazonaws.com'
+    MEDIA_URL=f'https://{MEDIA_HOST}/'
 else:
     # Default storage settings, with the staticfiles storage updated.
     # See https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-STORAGES
