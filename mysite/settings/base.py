@@ -176,7 +176,7 @@ if not DEBUG:    # Tell Django to copy static assets into a path called `staticf
 
     MEDIA_ROOT = 'media'
     MEDIA_HOST=f'{MEDIA_S3_BUCKET_NAME}.s3.amazonaws.com'
-    MEDIA_URL=f'https://{MEDIA_HOST}/'
+    MEDIA_URL=f'https://{MEDIA_HOST}/media/'
 else:
     # Default storage settings, with the staticfiles storage updated.
     # See https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-STORAGES
