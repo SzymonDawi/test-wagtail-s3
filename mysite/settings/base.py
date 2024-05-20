@@ -32,9 +32,9 @@ if RENDER_EXTERNAL_HOSTNAME:
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
-MEDIA_S3_ACCESS_KEY_ID = os.environ.get('MEDIA_S3_ACCESS_KEY_ID', default=None)
-MEDIA_S3_SECRET_ACCESS_KEY = os.environ.get('MEDIA_S3_SECRET_ACCESS_KEY', default=None)
-MEDIA_S3_BUCKET_NAME=os.environ.get('MEDIA_S3_BUCKET_NAME', default=None)
+MEDIA_S3_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', default=None)
+MEDIA_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', default=None)
+MEDIA_S3_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME', default=None)
 
 # Application definition
 
