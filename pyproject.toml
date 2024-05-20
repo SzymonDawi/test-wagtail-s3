@@ -16,7 +16,6 @@ dj-database-url = "^2.1.0"
 whitenoise = {extras = ["brotli"], version = "^6.6.0"}
 gunicorn = "^22.0.0"
 uvicorn = "^0.29.0"
-environ = "^1.0"
 
 
 [build-system]
