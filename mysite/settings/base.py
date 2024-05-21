@@ -16,7 +16,7 @@ import dj_database_url
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -163,35 +163,35 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STORAGES = {
-        "default": {
-            "BACKEND": "mysite.storages.PublicMediaStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
+# if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STORAGES = {
+    "default": {
+        "BACKEND": "mysite.storages.PublicMediaStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
-    MEDIA_ROOT = 'media'
-    MEDIA_HOST=f'{MEDIA_S3_BUCKET_NAME}.s3.amazonaws.com'
-    MEDIA_URL=f'https://{MEDIA_HOST}/media/'
-else:
-    # Default storage settings, with the staticfiles storage updated.
-    # See https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-STORAGES
-    STORAGES = {
-        "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-        },
-        # ManifestStaticFilesStorage is recommended in production, to prevent
-        # outdated JavaScript / CSS assets being served from cache
-        # (e.g. after a Wagtail upgrade).
-        # See https://docs.djangoproject.com/en/5.0/ref/contrib/staticfiles/#manifeststaticfilesstorage
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
-        },
-    }
+MEDIA_ROOT = 'media'
+MEDIA_HOST=f'{MEDIA_S3_BUCKET_NAME}.s3.amazonaws.com'
+MEDIA_URL=f'https://{MEDIA_HOST}/media/'
+# else:
+#     # Default storage settings, with the staticfiles storage updated.
+#     # See https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-STORAGES
+#     STORAGES = {
+#         "default": {
+#             "BACKEND": "django.core.files.storage.FileSystemStorage",
+#         },
+#         # ManifestStaticFilesStorage is recommended in production, to prevent
+#         # outdated JavaScript / CSS assets being served from cache
+#         # (e.g. after a Wagtail upgrade).
+#         # See https://docs.djangoproject.com/en/5.0/ref/contrib/staticfiles/#manifeststaticfilesstorage
+#         "staticfiles": {
+#             "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+#         },
+#     }
 
 
 # Wagtail settings
